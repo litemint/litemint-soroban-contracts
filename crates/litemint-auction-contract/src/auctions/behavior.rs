@@ -12,7 +12,7 @@ use super::behavior_ascending_price::*;
 use super::behavior_descending_price::*;
 use crate::types::{AdminData, AuctionData, BidData, DataKey};
 
-use soroban_tools::storage;
+use soroban_kit::storage;
 
 // Event topics.
 const AUCTION: Symbol = symbol_short!("AUCTION");
@@ -49,22 +49,22 @@ pub trait BaseAuction {
             auction_data,
         );
 
-        fn convert_seconds_to_ledgers(watermark: u64) -> u64 {
-            watermark
+        fn convert_seconds_to_ledgers(seconds: u64) -> u64 {
+            seconds
                 .checked_add(ledger_times::LEDGERS_PER_MINUTE - 1)
                 .and_then(|sum| sum.checked_div(ledger_times::LEDGERS_PER_MINUTE))
                 .expect("Invalid duration.")
                 .min(ledger_times::LEDGERS_PER_YEAR)
         }
 
-        // Bump the storage according to auction duration,
+        // Extend data TTL according to auction duration,
         // adding a couple hours to avoid expiration with async resolve.
         let expiration_buffer: u64 = 7200;
-        storage::bump::<DataKey, AuctionData>(
+        storage::extend_ttl::<DataKey, AuctionData>(
             env,
             &DataKey::AuctionData(seller.clone()),
-            convert_seconds_to_ledgers(auction_data.duration + expiration_buffer),
-            convert_seconds_to_ledgers(auction_data.duration + expiration_buffer),
+            convert_seconds_to_ledgers(auction_data.duration + expiration_buffer) as u32,
+            convert_seconds_to_ledgers(auction_data.duration + expiration_buffer) as u32,
         );
 
         env.events()

@@ -9,7 +9,7 @@
 use crate::types::{AuctionData, DataKey};
 use soroban_sdk::{Address, Env};
 
-use soroban_tools::storage;
+use soroban_kit::storage;
 
 pub struct DescendingPriceAuction;
 

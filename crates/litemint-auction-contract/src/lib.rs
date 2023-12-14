@@ -15,7 +15,7 @@ use crate::auctions::{behavior::BaseAuction, behavior::Dispatcher};
 use soroban_sdk::{contract, contractimpl, contractmeta, vec, Address, Env, Vec};
 use types::{AdminData, AuctionData, BidData, DataKey};
 
-use soroban_tools::storage;
+use soroban_kit::storage;
 
 contractmeta!(
     key="desc",

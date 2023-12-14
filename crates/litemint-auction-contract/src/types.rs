@@ -6,8 +6,8 @@
     MIT License
 */
 
-use soroban_macros::{key_constraint, storage};
 use soroban_sdk::{contracttype, Address, Env, Vec};
+use soroban_kit::{key_constraint, soroban_tools, storage};
 
 #[derive(Clone)]
 #[contracttype]

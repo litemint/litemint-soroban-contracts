@@ -59,12 +59,12 @@ fn test_auctions() {
     let commission_rate = 10;
     let token_supply: i128 = 5;
     let extendable_auctions = true;
-    let token_admin = Address::random(&env);
-    let seller = Address::random(&env);
+    let token_admin = Address::generate(&env);
+    let seller = Address::generate(&env);
     let (token, token_admin_client) = create_token_contract(&env, &token_admin);
     let (market, market_admin_client) = create_token_contract(&env, &token_admin);
     let auction_contract = create_auction_contract(&env);
-    let bidders = [Address::random(&env), Address::random(&env)];
+    let bidders = [Address::generate(&env), Address::generate(&env)];
 
     // Initialize the balances.
     token_admin_client.mint(&seller, &token_supply);
@@ -308,12 +308,12 @@ fn test_anti_sniping() {
     let commission_rate = 10;
     let extendable_auctions = true;
     let token_supply: i128 = 5;
-    let token_admin = Address::random(&env);
-    let seller = Address::random(&env);
+    let token_admin = Address::generate(&env);
+    let seller = Address::generate(&env);
     let (token, token_admin_client) = create_token_contract(&env, &token_admin);
     let (market, market_admin_client) = create_token_contract(&env, &token_admin);
     let auction_contract = create_auction_contract(&env);
-    let bidders = [Address::random(&env), Address::random(&env)];
+    let bidders = [Address::generate(&env), Address::generate(&env)];
 
     // Initialize the balances.
     token_admin_client.mint(&seller, &token_supply);

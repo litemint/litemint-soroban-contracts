@@ -1,6 +1,6 @@
 [package]
 name = "litemint-auction-contract"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Fred Kyung-jin Rezeau <fred@litemint.com>"]
 keywords = ["soroban", "stellar", "blockchain", "smart-contract"]
@@ -14,17 +14,15 @@ homepage = "https://litemint.com"
 crate-type = ["cdylib"]
 
 [dependencies]
-soroban-sdk = "20.0.0-rc2"
+soroban-sdk = "20.0.0"
 
-[dependencies.soroban-macros]
-version = "0.1.1"
+[dependencies.soroban-kit]
+version = "0.1.4"
+default-features = false
 features = ["storage"]
 
-[dependencies.soroban-tools]
-version = "0.1.1"
-
 [dev_dependencies]
-soroban-sdk = { version = "20.0.0-rc2", features = ["testutils"] }
+soroban-sdk = { version = "20.0.0", features = ["testutils"] }
 
 [features]
 testutils = ["soroban-sdk/testutils"]
