@@ -23,8 +23,14 @@ Official repo hosting the open source code ([MIT License](LICENSE)) for Soroban 
 
 #### soroban-kit
   
-  Fast, lightweight functions and macros with lean, targeted functionality for Soroban smart contract development:
-  [https://github.com/FredericRezeau/soroban-kit](https://github.com/FredericRezeau/soroban-kit)
+  `soroban-kit` provides fast, lightweight functions and macros with lean, targeted functionality for Soroban smart contract development:
+  [https://github.com/FredericRezeau/soroban-kit](https://github.com/FredericRezeau/soroban-kit).
+
+Litemint smart contracts uses the following features from `soroban-kit`:
+  - [X] `commitment-scheme` to implement sealed bid auctions.
+  - [X] `state-machine` to manage auction phases.
+  - [X] `storage` for type safety with storage operations.
+  - [X] `circuit-breaker` for pausable smart contracts.
 
 ### Running tests and building
 
@@ -47,7 +53,7 @@ From the workspace root:
 
 ### litemint-auction-contract
 
-Litemint auction smart contract for the Litemint marketplace, implementing timed auctions with support for both ascending and descending price mechanisms with linear or compound discount, customizable frequency/rate, _buy now_ option, concurrent and cancellable bids, configurable marketplace commission rate, extendable auctions, new behaviors via strategy design pattern. [View source and documentation](/crates/litemint-auction-contract/).
+This contract implements timed auctions with support for both open and sealed bid auctions, ascending and descending price mechanisms with linear or compound discount, customizable frequency/rate, _buy now_ option, concurrent and cancellable bids, configurable marketplace commission rate, extendable auctions, easy behaviors plugin via strategy design pattern. [View source and documentation](/crates/litemint-auction-contract/).
 
 ### litemint-royalty-contract
 

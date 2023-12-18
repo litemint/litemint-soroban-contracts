@@ -3,7 +3,9 @@
 
 # litemint-auction-contract
 
-Official repo hosting the open source code ([MIT License](LICENSE)) of Litemint auction smart contract powering the Litemint marketplace.
+Official repo hosting the open source code of Litemint auction smart contract powering the Litemint marketplace.
+
+Licensed under MIT. This software is provided "AS IS", no liability assumed. [More details](LICENSE).
 
 - [litemint-auction-contract](#litemint-auction-contract)
   - [Introduction](#introduction)
@@ -23,6 +25,7 @@ The Litemint Auction Contract on [Soroban](https://soroban.stellar.org) (Stellar
 This contract implements a range of features, including:
 
 - [X] Time-based auctions with decentralized resolution.
+- [X] Sealed bid auctions.
 - [X] Descending price auctions (see [behavior_descending_price.rs](src/auctions/behavior_descending_price.rs)) supporting linear or compound discount, and customizable frequency/rate.
 - [X] Ascending price auctions (see [behavior_ascending_price.rs](src/auctions/behavior_ascending_price.rs)) with "**_buy now_**" option.
 - [X] Support for `reserve price` and `ask price`.
@@ -36,8 +39,13 @@ This contract implements a range of features, including:
 
 #### soroban-kit
   
-  Fast, lightweight functions and macros with lean, targeted functionality for Soroban smart contract development:
-  [https://github.com/FredericRezeau/soroban-kit](https://github.com/FredericRezeau/soroban-kit)
+  `soroban-kit` provides fast, lightweight functions and macros with lean, targeted functionality for Soroban smart contract development:
+  [https://github.com/FredericRezeau/soroban-kit](https://github.com/FredericRezeau/soroban-kit).
+
+  The Litemint auction contract uses the following features from `soroban-kit`:
+  - [X] `commitment-scheme` to implement sealed bid auctions.
+  - [X] `state-machine` to manage auction phases.
+  - [X] `storage` for type safety with storage operations.
 
 ## Getting Started
 

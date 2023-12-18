@@ -7,42 +7,43 @@
 */
 
 use crate::types::{AuctionData, DataKey};
-use soroban_sdk::{Address, Env};
-
 use soroban_kit::storage;
+use soroban_sdk::Env;
 
 pub struct AscendingPriceAuction;
 
 // AscendingPriceAuction (aka English Auction).
 impl super::behavior::BaseAuction for AscendingPriceAuction {
-    fn resolve(&self, env: &Env, seller: &Address) -> bool {
+    fn resolve(&self, env: &Env, auction_id: u64) -> bool {
         let auction_data =
-            storage::get::<DataKey, AuctionData>(env, &DataKey::AuctionData(seller.clone()))
-                .unwrap();
+            storage::get::<DataKey, AuctionData>(env, &DataKey::AuctionData(auction_id)).unwrap();
 
         // Retrieve the highest bid.
         if let Some(bid) = auction_data.bids.iter().max_by_key(|bid| bid.amount) {
             // Check that the reserve is met and
             // either the auction time has expired or the ask price is met.
-            let price = self.calculate_price(&env, &seller);
+            let price = self.calculate_price(&env, auction_id);
             if bid.amount >= price
-                && (auction_data.start_time + auction_data.duration < env.ledger().timestamp()
-                    || (auction_data.ask_price > price && bid.amount >= auction_data.ask_price))
+                && (auction_data.start_time + auction_data.settings.duration
+                    < env.ledger().timestamp()
+                    || (auction_data.settings.ask_price > price
+                        && bid.amount >= auction_data.settings.ask_price))
             {
-                return self.finalize(env, seller, Some(&bid));
+                return self.finalize(env, auction_id, Some(&bid));
             }
         } else {
             // Auction has expired.
-            if auction_data.start_time + auction_data.duration < env.ledger().timestamp() {
-                return self.finalize(env, seller, None);
+            if auction_data.start_time + auction_data.settings.duration < env.ledger().timestamp() {
+                return self.finalize(env, auction_id, None);
             }
         }
         false
     }
 
-    fn calculate_price(&self, env: &Env, seller: &Address) -> i128 {
-        storage::get::<DataKey, AuctionData>(env, &DataKey::AuctionData(seller.clone()))
+    fn calculate_price(&self, env: &Env, auction_id: u64) -> i128 {
+        storage::get::<DataKey, AuctionData>(env, &DataKey::AuctionData(auction_id))
             .unwrap()
+            .settings
             .reserve_price
     }
 }
