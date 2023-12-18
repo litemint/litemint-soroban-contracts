@@ -26,7 +26,7 @@ Official repo hosting the open source code ([MIT License](LICENSE)) for Soroban 
   `soroban-kit` provides fast, lightweight functions and macros with lean, targeted functionality for Soroban smart contract development:
   [https://github.com/FredericRezeau/soroban-kit](https://github.com/FredericRezeau/soroban-kit).
 
-Litemint smart contracts uses the following features from `soroban-kit`:
+Litemint smart contracts use the following features from `soroban-kit`:
   - [X] `commitment-scheme` to implement sealed bid auctions.
   - [X] `state-machine` to manage auction phases.
   - [X] `storage` for type safety with storage operations.
