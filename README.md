@@ -3,7 +3,12 @@
 
 # litemint-soroban-contracts
 
-Official repo hosting the open source code ([MIT License](LICENSE)) for Soroban smart contracts powering our Litemint marketplace and games.
+![Build Status](https://github.com/litemint/litemint-soroban-contracts/actions/workflows/rust.yml/badge.svg)
+[![litemint-auction-contract version](https://img.shields.io/crates/v/litemint-auction-contract.svg)](https://crates.io/crates/litemint-auction-contract)
+
+Official repo hosting the open source code of Litemint smart contracts powering the Litemint marketplace and games.
+
+Licensed under MIT. This software is provided "AS IS", no liability assumed. [More details](LICENSE).
 
 - [litemint-soroban-contracts](#litemint-soroban-contracts)
   - [Getting Started](#getting-started)
