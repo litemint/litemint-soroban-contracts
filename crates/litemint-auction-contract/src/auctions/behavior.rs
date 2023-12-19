@@ -31,13 +31,11 @@ pub mod ledger_times {
 
 pub trait BaseAuction {
     fn start(&self, env: &Env, auction_id: u64, auction_data: &AuctionData) {
-        if storage::has::<DataKey, AuctionData>(&env, &DataKey::AuctionData(auction_id)) {
-            panic!("Auction already running");
-        }
-
-        if auction_data.settings.amount == 0 || auction_data.settings.duration == 0 {
-            panic!("Invalid auction parameters");
-        }
+        assert!(!storage::has::<DataKey, AuctionData>(
+            &env,
+            &DataKey::AuctionData(auction_id)
+        ));
+        assert!(auction_data.settings.amount > 0 && auction_data.settings.duration > 0);
 
         // Transfer token to contract.
         let token = token::Client::new(&env, &auction_data.settings.token);

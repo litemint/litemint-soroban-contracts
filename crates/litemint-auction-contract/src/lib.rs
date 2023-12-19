@@ -88,15 +88,6 @@ struct AuctionContract;
 
 #[contractimpl]
 impl AuctionContractTrait for AuctionContract {
-    fn upgrade(env: Env, wasm_hash: BytesN<32>) {
-        storage::get_or_else::<DataKey, AdminData, _, _>(&env, &DataKey::AdminData, |opt| {
-            opt.unwrap_or_else(|| panic!("Admin not set"))
-        })
-        .admin
-        .require_auth();
-        env.deployer().update_current_contract_wasm(wasm_hash);
-    }
-
     fn get_auction(env: Env, auction_id: u64) -> Option<AuctionData> {
         storage::get_or_else::<DataKey, AuctionData, _, _>(
             &env,
@@ -171,7 +162,7 @@ impl AuctionContractTrait for AuctionContract {
 
     fn extend(env: Env, auction_id: u64, duration: u64) -> bool {
         if !storage::get_or_else::<DataKey, AdminData, _, _>(&env, &DataKey::AdminData, |opt| {
-            opt.unwrap_or_else(|| panic!("Admin not set"))
+            opt.unwrap()
         })
         .extendable_auctions
         {
@@ -192,9 +183,7 @@ impl AuctionContractTrait for AuctionContract {
     }
 
     fn start(env: Env, auction_settings: AuctionSettings) -> u64 {
-        if !storage::has::<DataKey, AdminData>(&env, &DataKey::AdminData) {
-            panic!("Admin not set");
-        }
+        assert!(storage::has::<DataKey, AdminData>(&env, &DataKey::AdminData));
 
         auction_settings.seller.require_auth();
 
@@ -222,9 +211,7 @@ impl AuctionContractTrait for AuctionContract {
         commission_rate: i128,
         extendable_auctions: bool,
     ) {
-        if storage::has::<DataKey, AdminData>(&env, &DataKey::AdminData) {
-            panic!("Admin already set");
-        }
+        assert!(!storage::has::<DataKey, AdminData>(&env, &DataKey::AdminData));
 
         storage::set::<DataKey, AdminData>(
             &env,
@@ -236,6 +223,13 @@ impl AuctionContractTrait for AuctionContract {
                 extendable_auctions,
             },
         );
+    }
+
+    fn upgrade(env: Env, wasm_hash: BytesN<32>) {
+        storage::get::<DataKey, AdminData>(&env, &DataKey::AdminData).unwrap()
+        .admin
+        .require_auth();
+        env.deployer().update_current_contract_wasm(wasm_hash);
     }
 
     fn version(env: Env) -> Vec<u32> {

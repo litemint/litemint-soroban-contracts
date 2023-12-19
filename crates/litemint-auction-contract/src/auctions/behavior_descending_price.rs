@@ -36,28 +36,25 @@ impl super::behavior::BaseAuction for DescendingPriceAuction {
     fn calculate_price(&self, env: &Env, auction_id: u64) -> i128 {
         let auction_data =
             storage::get::<DataKey, AuctionData>(env, &DataKey::AuctionData(auction_id)).unwrap();
+        assert!(
+            auction_data.settings.discount_percent > 0
+                && auction_data.settings.discount_frequency > 0
+        );
 
-        // Sanity checks.
-        if auction_data.settings.discount_percent == 0
-            || auction_data.settings.discount_frequency == 0
-        {
-            panic!("Invalid parameters");
-        } else {
-            let elapsed = env.ledger().timestamp() - auction_data.start_time;
-            let periods = elapsed / auction_data.settings.discount_frequency;
-            if auction_data.settings.compounded_discount {
-                // Apply compound discount.
-                let mut price = auction_data.settings.ask_price;
-                for _ in 0..periods {
-                    price = (100 - auction_data.settings.discount_percent as i128) * price / 100;
-                }
-                price
-            } else {
-                // Apply simple linear discount.
-                auction_data.settings.ask_price
-                    * (100 - auction_data.settings.discount_percent * periods as u32) as i128
-                    / 100
+        let elapsed = env.ledger().timestamp() - auction_data.start_time;
+        let periods = elapsed / auction_data.settings.discount_frequency;
+        if auction_data.settings.compounded_discount {
+            // Apply compound discount.
+            let mut price = auction_data.settings.ask_price;
+            for _ in 0..periods {
+                price = (100 - auction_data.settings.discount_percent as i128) * price / 100;
             }
+            price
+        } else {
+            // Apply simple linear discount.
+            auction_data.settings.ask_price
+                * (100 - auction_data.settings.discount_percent * periods as u32) as i128
+                / 100
         }
         .max(auction_data.settings.reserve_price) // Ensure price does not fall below reserve.
     }

@@ -3,11 +3,12 @@ name = "litemint-auction-contract"
 version = "0.1.3"
 edition = "2021"
 authors = ["Fred Kyung-jin Rezeau <fred@litemint.com>"]
-keywords = ["soroban", "stellar", "blockchain", "smart-contract"]
+keywords = ["soroban", "stellar", "web3", "smart-contract", "nft"]
 license-file = "LICENSE"
+repository = "https://github.com/litemint/litemint-soroban-contracts"
+description = "Auction smart contract for the Litemint marketplace, implementing timed auctions with support for sealed bids, ascending and descending price mechanisms."
 
 [package.metadata]
-repository = "https://github.com/litemint/litemint-soroban-contracts"
 homepage = "https://litemint.com"
 
 [lib]

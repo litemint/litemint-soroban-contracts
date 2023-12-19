@@ -67,7 +67,7 @@ pub struct AuctionSettings {
 }
 
 #[contracttype]
-#[storage(Persistent, DataKeyConstraint)]
+#[storage(Instance, DataKeyConstraint)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct AuctionData {
     pub settings: AuctionSettings,
