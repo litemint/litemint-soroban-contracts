@@ -233,7 +233,7 @@ impl AuctionContractTrait for AuctionContract {
     }
 
     fn version(env: Env) -> Vec<u32> {
-        vec![&env, 0, 1, 3] // "0.1.3"
+        vec![&env, 0, 1, 4] // "0.1.4"
     }
 }
 

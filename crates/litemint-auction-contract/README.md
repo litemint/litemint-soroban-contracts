@@ -2,8 +2,10 @@
 [![Twitter][twitter-shield]][twitter-url]
 
 # litemint-auction-contract
+![Build Status](https://github.com/litemint/litemint-soroban-contracts/actions/workflows/rust.yml/badge.svg)
+[![litemint-auction-contract version](https://img.shields.io/crates/v/litemint-auction-contract.svg)](https://crates.io/crates/litemint-auction-contract)
 
-Official repo hosting the open source code of Litemint auction smart contract powering the Litemint marketplace.
+Litemint auction smart contract powering the Litemint marketplace.
 
 Licensed under MIT. This software is provided "AS IS", no liability assumed. [More details](LICENSE).
 
