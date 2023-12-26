@@ -1,6 +1,6 @@
 [package]
 name = "litemint-auction-contract"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 authors = ["litemint <hello@litemint.com>"]
 keywords = ["soroban", "stellar", "web3", "smart-contract", "nft"]
