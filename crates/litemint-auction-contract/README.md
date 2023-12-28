@@ -29,8 +29,8 @@ The Litemint Auction Contract on [Soroban](https://soroban.stellar.org) (Stellar
 
 - [X] Time-based auctions with decentralized resolution.
 - [X] Sealed bid auctions.
-- [X] Descending price auctions (see [behavior_descending_price.rs](src/auctions/behavior_descending_price.rs)) supporting linear or compound discount, and customizable frequency/rate.
-- [X] Ascending price auctions (see [behavior_ascending_price.rs](src/auctions/behavior_ascending_price.rs)) with "**_buy now_**" option.
+- [X] Descending price auctions (see [behavior_descending_price.rs](https://github.com/litemint/litemint-soroban-contracts/blob/master/crates/litemint-auction-contract/src/auctions/behavior_descending_price.rs)) supporting linear or compound discount, and customizable frequency/rate.
+- [X] Ascending price auctions (see [behavior_ascending_price.rs](https://github.com/litemint/litemint-soroban-contracts/blob/master/crates/litemint-auction-contract/src/auctions/behavior_ascending_price.rs)) with "**_buy now_**" option.
 - [X] Support for `reserve price` and `ask price`.
 - [X] Anti-snipe mechanism. Auction sniping automatically increases the auction duration (time configurable by admin) and prevents the sniper to either cancel or submit a new bid.
 - [X] Configurable marketplace commission rate.

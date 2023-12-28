@@ -31,9 +31,9 @@ The Litemint royalty contract implements multiple royalty payment schemes for no
 
 ## Feature List
 
-- [X] Percentage-based royalty payments (see [compensation_percentage.rs](https://github.com/litemint/litemint-soroban-contracts/src/agreement/compensation_percentage.rs)).
-- [X] Fixed royalty payments (see [compensation_fixed.rs](https://github.com/litemint/litemint-soroban-contracts/src/agreement/compensation_fixed.rs)).
-- [X] Subcription royalty payments (see [compensation_subscription.rs](https://github.com/litemint/litemint-soroban-contracts/src/agreement/compensation_subscription.rs)).
+- [X] Percentage-based royalty payments (see [compensation_percentage.rs](https://github.com/litemint/litemint-soroban-contracts/blob/master/crates/litemint-royalty-contract/src/agreement/compensation_percentage.rs)).
+- [X] Fixed royalty payments (see [compensation_fixed.rs](https://github.com/litemint/litemint-soroban-contracts/blob/master/crates/litemint-royalty-contract/src/agreement/compensation_fixed.rs)).
+- [X] Subcription royalty payments (see [compensation_subscription.rs](https://github.com/litemint/litemint-soroban-contracts/blob/master/crates/litemint-royalty-contract/src/agreement/compensation_subscription.rs)).
 - [X] Decentralized on-chain payment enforcement.
 - [X] NFTs compatibility with all ecosystem services.
 - [X] Support for all currencies and markets.

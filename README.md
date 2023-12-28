@@ -58,11 +58,11 @@ From the workspace root:
 
 ### litemint-auction-contract
 
-This contract implements timed auctions with support for both open and sealed bid auctions, ascending and descending price mechanisms with linear or compound discount, customizable frequency/rate, _buy now_ option, concurrent and cancellable bids, configurable marketplace commission rate, extendable auctions, easy behaviors plugin via strategy design pattern. For further details, check out the [source and documentation](https://github.com/litemint/litemint-soroban-contracts/crates/litemint-auction-contract/).
+This contract implements timed auctions with support for both open and sealed bid auctions, ascending and descending price mechanisms with linear or compound discount, customizable frequency/rate, _buy now_ option, concurrent and cancellable bids, configurable marketplace commission rate, extendable auctions, easy behaviors plugin via strategy design pattern. For further details, check out the [source and documentation](https://github.com/litemint/litemint-soroban-contracts/tree/master/crates/litemint-auction-contract).
 
 ### litemint-royalty-contract
 
-This contract implements multiple royalty payment schemes for non-fungible tokens, including fixed, subscription, and percentage-based models. A key feature is its ability to enforce royalty payments without *isolating* NFTs from the Stellar DEX. Our approach ensures that NFT creators and collectors can freely hold and trade their NFTs from any Stellar DEX compatible service, enjoying an unrestricted sales funnel. For further details, check out the [source and documentation](https://github.com/litemint/litemint-soroban-contracts/crates/litemint-royalty-contract/).
+This contract implements multiple royalty payment schemes for non-fungible tokens, including fixed, subscription, and percentage-based models. A key feature is its ability to enforce royalty payments without *isolating* NFTs from the Stellar DEX. Our approach ensures that NFT creators and collectors can freely hold and trade their NFTs from any Stellar DEX compatible service, enjoying an unrestricted sales funnel. For further details, check out the [source and documentation](https://github.com/litemint/litemint-soroban-contracts/tree/master/crates/litemint-royalty-contract).
 
 ## Contributing
 
