@@ -1,15 +1,15 @@
 [![MIT License][license-shield]][license-url]
 [![Twitter][twitter-shield]][twitter-url]
 
-# litemint-auction-contract
+# litemint-royalty-contract
 ![Build Status](https://github.com/litemint/litemint-soroban-contracts/actions/workflows/rust.yml/badge.svg)
-[![litemint-auction-contract version](https://img.shields.io/crates/v/litemint-auction-contract.svg)](https://crates.io/crates/litemint-auction-contract)
+[![litemint-auction-contract version](https://img.shields.io/crates/v/litemint-royalty-contract.svg)](https://crates.io/crates/litemint-royalty-contract)
 
-Litemint auction smart contract powering the Litemint marketplace.
+Litemint royalty smart contract powering the Litemint marketplace.
 
 Licensed under MIT. This software is provided "AS IS", no liability assumed. [More details](LICENSE).
 
-- [litemint-auction-contract](#litemint-auction-contract)
+- [litemint-royalty-contract](#litemint-royalty-contract)
   - [Introduction](#introduction)
   - [Feature List](#feature-list)
   - [Dependencies](#dependencies)
@@ -21,22 +21,25 @@ Licensed under MIT. This software is provided "AS IS", no liability assumed. [Mo
 
 ## Introduction
 
-Since 2021, the Litemint marketplace has utilized the Stellar DEX for time-based auctions, leveraging time-bound, pre-auth transactions [details in our blog](https://blog.litemint.com/anatomy-of-a-stellar-powered-auction-on-litemint/). While these auctions offer security and interoperability, they lack flexibilities, such as anti-snipe mechanisms and varied bidding strategies like descending auctions.
+Royalties play a pivotal role in digital economies.
 
-The Litemint Auction Contract on [Soroban](https://soroban.stellar.org) (Stellar's Rust-based smart contracts platform), addresses these limitations. The smart contract enhances the Litemint marketplace while co-existing with our SDEX-based method, offering users a comprehensive and versatile auction experience.
+The industry has encountered numerous obstacles in achieving decentralized payment enforcements (we discussed this topic at Meridian 2022, see [video excerpt here](https://twitter.com/LitemintHQ/status/1581565573112401925)). Currently, most marketplaces retain significant control over enforcing royalty payments (see [this Tweet](https://twitter.com/opensea/status/1626682043655507969) from OpenSea), which poses challenges to creators.
+
+To address these challenges, we have identified a unique combination with Soroban smart contracts, oracles, and Stellar classic primitives (pre-auth transactions) allowing us to implement an unobtrusive solution for on-chain NFT royalty payment enforcements.
+
+The Litemint royalty contract implements multiple royalty payment schemes for non-fungible tokens, including fixed, subscription, and percentage-based models. A key feature is its ability to enforce royalty payments without *isolating* NFTs from the Stellar DEX. Our approach ensures that NFT creators and collectors can freely hold and trade their NFTs from any Stellar DEX compatible service, enjoying an unrestricted sales funnel. 
 
 ## Feature List
 
-- [X] Time-based auctions with decentralized resolution.
-- [X] Sealed bid auctions.
-- [X] Descending price auctions (see [behavior_descending_price.rs](src/auctions/behavior_descending_price.rs)) supporting linear or compound discount, and customizable frequency/rate.
-- [X] Ascending price auctions (see [behavior_ascending_price.rs](src/auctions/behavior_ascending_price.rs)) with "**_buy now_**" option.
-- [X] Support for `reserve price` and `ask price`.
-- [X] Anti-snipe mechanism. Auction sniping automatically increases the auction duration (time configurable by admin) and prevents the sniper to either cancel or submit a new bid.
-- [X] Configurable marketplace commission rate.
-- [X] Extendable auction duration by seller.
-- [X] Support for concurrent and cancellable bids.
-- [X] Strategy design pattern for easily adding new auction behaviors.
+- [X] Percentage-based royalty payments (see [compensation_percentage.rs](https://github.com/litemint/litemint-soroban-contracts/src/agreement/compensation_percentage.rs)).
+- [X] Fixed royalty payments (see [compensation_fixed.rs](https://github.com/litemint/litemint-soroban-contracts/src/agreement/compensation_fixed.rs)).
+- [X] Subcription royalty payments (see [compensation_subscription.rs](https://github.com/litemint/litemint-soroban-contracts/src/agreement/compensation_subscription.rs)).
+- [X] Decentralized on-chain payment enforcement.
+- [X] NFTs compatibility with all ecosystem services.
+- [X] Support for all currencies and markets.
+- [X] Optional license transfer fee.
+- [X] Configurable grace period and marketplace commission rate.
+- [X] Strategy design pattern for easily adding new royalty schemes.
 
 ## Dependencies
 
@@ -45,9 +48,8 @@ The Litemint Auction Contract on [Soroban](https://soroban.stellar.org) (Stellar
   `soroban-kit` provides fast, lightweight functions and macros with lean, targeted functionality for Soroban smart contract development:
   [https://github.com/FredericRezeau/soroban-kit](https://github.com/FredericRezeau/soroban-kit).
 
-  The Litemint auction contract uses the following features from `soroban-kit`:
-  - [X] `commitment-scheme` to implement sealed bid auctions.
-  - [X] `state-machine` to manage auction phases.
+  The Litemint royalty contract uses the following features from `soroban-kit`:
+  - [X] `oracles` to receive external market data feed.
   - [X] `storage` for type safety with storage operations.
 
 ## Getting Started
@@ -72,10 +74,6 @@ From the workspace root:
    ```
    ```sh
    output > CONTRACT_ID
-   ```
-5. Initialize admin:
-   ```sh
-   soroban contract invoke --id CONTRACT_ID --source ACCOUNT --rpc-url https://soroban-testnet.stellar.org:443 --network-passphrase "Test SDF Network ; September 2015" -- initialize --admin ACCOUNT --anti_snipe_time 60 --commission_rate 5 --extendable_auctions true
    ```
 
 ## Contributing
@@ -108,5 +106,3 @@ Join our discord server: [https://litemint.gg](https://litemint.gg)
 
 [rust-shield]: https://img.shields.io/badge/Rust-000000?style=flat-square&logo=Rust&logoColor=white
 [rust-url]: https://www.rust-lang.org
-[javascript-shield]: https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black
-[javascript-url]: https://vanilla-js.com

@@ -12,23 +12,33 @@ use soroban_sdk::{contracttype, Address, Env, Vec};
 #[derive(Clone)]
 #[contracttype]
 #[key_constraint(DataKeyConstraint)]
-pub enum DataKey {
+pub(crate) enum DataKey {
     AdminData,
     AuctionData(u64),
 }
 
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub enum AuctionRegion {
+pub(crate) enum AuctionRegion {
     Dispatcher(u64),
     Resolve(u64),
 }
 
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub enum AuctionPhase {
+pub(crate) enum AuctionPhase {
     Committing,
     Running,
+}
+
+#[contracttype]
+#[storage(Instance, DataKeyConstraint)]
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct AdminData {
+    pub admin: Address,
+    pub anti_snipe_time: u64,
+    pub commission_rate: i128,
+    pub extendable_auctions: bool,
 }
 
 #[contracttype]
@@ -37,16 +47,6 @@ pub struct BidData {
     pub buyer: Address,
     pub amount: i128,
     pub sniper: bool,
-}
-
-#[contracttype]
-#[storage(Instance, DataKeyConstraint)]
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub struct AdminData {
-    pub admin: Address,
-    pub anti_snipe_time: u64,
-    pub commission_rate: i128,
-    pub extendable_auctions: bool,
 }
 
 #[contracttype]

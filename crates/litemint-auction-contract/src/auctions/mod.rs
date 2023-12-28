@@ -19,6 +19,6 @@
 //! - Anti-snipe mechanism.
 //! - Concurrent and cancellable bids.
 
-pub mod behavior;
-pub mod behavior_ascending_price;
-pub mod behavior_descending_price;
+pub(crate) mod behavior;
+pub(crate) mod behavior_ascending_price;
+pub(crate) mod behavior_descending_price;

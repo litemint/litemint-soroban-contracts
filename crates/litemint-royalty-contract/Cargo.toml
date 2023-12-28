@@ -1,12 +1,12 @@
 [package]
-name = "litemint-auction-contract"
+name = "litemint-royalty-contract"
 version = "0.1.6"
 edition = "2021"
 authors = ["litemint <hello@litemint.com>"]
-keywords = ["soroban", "stellar", "web3", "smart-contract", "nft"]
+keywords = ["soroban", "stellar", "web3", "royalties", "nft"]
 license-file = "LICENSE"
 repository = "https://github.com/litemint/litemint-soroban-contracts"
-description = "Auction smart contract for the Litemint marketplace, implementing timed auctions with support for sealed bids, ascending and descending price mechanisms."
+description = "Royalty smart contract for the Litemint marketplace supporting fixed, subscription, and percentage-based royalties."
 
 [package.metadata]
 homepage = "https://litemint.com"
@@ -20,7 +20,7 @@ soroban-sdk = "20.0.0"
 [dependencies.soroban-kit]
 version = "0.1.9"
 default-features = false
-features = ["storage", "state-machine", "commitment-scheme"]
+features = ["storage", "oracle"]
 
 [dev_dependencies]
 soroban-sdk = { version = "20.0.0", features = ["testutils"] }

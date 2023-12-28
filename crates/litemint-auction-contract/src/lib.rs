@@ -124,15 +124,13 @@ impl AuctionContractTrait for AuctionContract {
         );
 
         #[cfg(test)]
-        fn has_sealed_phase_expired(_env: &Env, _auction_data: &AuctionData) -> bool {
-            true
-        }
+        let has_sealed_phase_expired = |_env: &Env, _auction_data: &AuctionData| -> bool { true };
 
         #[cfg(not(test))]
-        fn has_sealed_phase_expired(env: &Env, auction_data: &AuctionData) -> bool {
+        let has_sealed_phase_expired = |env: &Env, auction_data: &AuctionData| -> bool {
             auction_data.start_time + auction_data.settings.sealed_phase_time
                 <= env.ledger().timestamp()
-        }
+        };
 
         if dispatcher.is_sealed_bid_auction(&auction_data) {
             let region = AuctionRegion::Dispatcher(auction_id);
@@ -183,7 +181,10 @@ impl AuctionContractTrait for AuctionContract {
     }
 
     fn start(env: Env, auction_settings: AuctionSettings) -> u64 {
-        assert!(storage::has::<DataKey, AdminData>(&env, &DataKey::AdminData));
+        assert!(storage::has::<DataKey, AdminData>(
+            &env,
+            &DataKey::AdminData
+        ));
 
         auction_settings.seller.require_auth();
 
@@ -211,7 +212,10 @@ impl AuctionContractTrait for AuctionContract {
         commission_rate: i128,
         extendable_auctions: bool,
     ) {
-        assert!(!storage::has::<DataKey, AdminData>(&env, &DataKey::AdminData));
+        assert!(!storage::has::<DataKey, AdminData>(
+            &env,
+            &DataKey::AdminData
+        ));
 
         storage::set::<DataKey, AdminData>(
             &env,
@@ -226,9 +230,10 @@ impl AuctionContractTrait for AuctionContract {
     }
 
     fn upgrade(env: Env, wasm_hash: BytesN<32>) {
-        storage::get::<DataKey, AdminData>(&env, &DataKey::AdminData).unwrap()
-        .admin
-        .require_auth();
+        storage::get::<DataKey, AdminData>(&env, &DataKey::AdminData)
+            .unwrap()
+            .admin
+            .require_auth();
         env.deployer().update_current_contract_wasm(wasm_hash);
     }
 

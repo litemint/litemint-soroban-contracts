@@ -4,7 +4,6 @@
 # litemint-soroban-contracts
 
 ![Build Status](https://github.com/litemint/litemint-soroban-contracts/actions/workflows/rust.yml/badge.svg)
-[![litemint-auction-contract version](https://img.shields.io/crates/v/litemint-auction-contract.svg)](https://crates.io/crates/litemint-auction-contract)
 
 Official repo hosting the open source code of Litemint smart contracts powering the Litemint marketplace and games.
 
@@ -36,6 +35,7 @@ Litemint smart contracts use the following features from `soroban-kit`:
   - [X] `state-machine` to manage auction phases.
   - [X] `storage` for type safety with storage operations.
   - [X] `circuit-breaker` for pausable smart contracts.
+  - [X] `oracles` to manage market price feed.
 
 ### Running tests and building
 
@@ -58,11 +58,11 @@ From the workspace root:
 
 ### litemint-auction-contract
 
-This contract implements timed auctions with support for both open and sealed bid auctions, ascending and descending price mechanisms with linear or compound discount, customizable frequency/rate, _buy now_ option, concurrent and cancellable bids, configurable marketplace commission rate, extendable auctions, easy behaviors plugin via strategy design pattern. [View source and documentation](/crates/litemint-auction-contract/).
+This contract implements timed auctions with support for both open and sealed bid auctions, ascending and descending price mechanisms with linear or compound discount, customizable frequency/rate, _buy now_ option, concurrent and cancellable bids, configurable marketplace commission rate, extendable auctions, easy behaviors plugin via strategy design pattern. For further details, check out the [source and documentation](https://github.com/litemint/litemint-soroban-contracts/crates/litemint-auction-contract/).
 
 ### litemint-royalty-contract
 
-(coming soon) This contrat implements a natural solution to enforce royalty payments without isolating NFTs from the SDEX, or requiring specific client knowledge. Check out [this discussion to learn more](https://github.com/orgs/litemint/discussions/1).
+This contract implements multiple royalty payment schemes for non-fungible tokens, including fixed, subscription, and percentage-based models. A key feature is its ability to enforce royalty payments without *isolating* NFTs from the Stellar DEX. Our approach ensures that NFT creators and collectors can freely hold and trade their NFTs from any Stellar DEX compatible service, enjoying an unrestricted sales funnel. For further details, check out the [source and documentation](https://github.com/litemint/litemint-soroban-contracts/crates/litemint-royalty-contract/).
 
 ## Contributing
 
@@ -94,5 +94,3 @@ Join our discord server: [https://litemint.gg](https://litemint.gg)
 
 [rust-shield]: https://img.shields.io/badge/Rust-000000?style=flat-square&logo=Rust&logoColor=white
 [rust-url]: https://www.rust-lang.org
-[javascript-shield]: https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black
-[javascript-url]: https://vanilla-js.com

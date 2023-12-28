@@ -224,8 +224,14 @@ pub trait BaseAuction {
                 let market = token::Client::new(&env, &auction_data.settings.market);
                 let admin: Address = admin_data.admin;
                 let commission_rate: i128 = admin_data.commission_rate as i128;
-                let admin_share = bid.amount * commission_rate / 100;
-                let seller_share = bid.amount - admin_share;
+                let admin_share = bid
+                    .amount
+                    .checked_mul(commission_rate)
+                    .and_then(|val| val.checked_add(99))
+                    .and_then(|val| val.checked_div(100))
+                    .unwrap()
+                    .max(1);
+                let seller_share = bid.amount.checked_sub(admin_share).unwrap().max(1);
 
                 token.transfer(
                     &env.current_contract_address(),
