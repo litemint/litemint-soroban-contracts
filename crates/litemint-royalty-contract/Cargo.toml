@@ -1,6 +1,6 @@
 [package]
 name = "litemint-royalty-contract"
-version = "0.1.6"
+version = "0.1.7"
 edition = "2021"
 authors = ["litemint <hello@litemint.com>"]
 keywords = ["soroban", "stellar", "web3", "royalties", "nft"]
